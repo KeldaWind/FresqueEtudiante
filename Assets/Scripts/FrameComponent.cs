@@ -14,11 +14,13 @@ public class FrameComponent : MonoBehaviour
     public RectTransform selfRectTransform;
     public Image illustrationImage;
     public Mask illustrationImageMask;
+    public Image background;
     public Color placeholderColor = Color.magenta;
 
     [Header("Settings")]
     public FrameSettings frameSettings;
     public Sprite illustration;
+    public Color backgroundColor = Color.gray;
     public IllustrationDimenionsMode illustrationDimenionsMode = IllustrationDimenionsMode.Fit;
     public Vector2 illustrationOffset;
     public bool flipOrientation;
@@ -54,6 +56,8 @@ public class FrameComponent : MonoBehaviour
     {
         illustrationImage.sprite = illustration;
         illustrationImage.color = illustration != null ? Color.white : placeholderColor;
+
+        background.color = backgroundColor;
     }
 
     private void UpdateDimensions()
@@ -63,10 +67,10 @@ public class FrameComponent : MonoBehaviour
             selfRectTransform.sizeDelta += frameSettings.borderDimensionsOffset * 2.0f;
 
         illustrationImageMask.rectTransform.sizeDelta = finalIllustrationMaskDimensions;
+        illustrationImage.rectTransform.sizeDelta = finalIllustrationMaskDimensions;
 
         if (illustration == null)
         {
-            illustrationImage.rectTransform.sizeDelta = finalIllustrationMaskDimensions;
             return;
         }
 
